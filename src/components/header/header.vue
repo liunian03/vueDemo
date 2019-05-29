@@ -22,6 +22,7 @@
                 </div>
             </div>
             <div></div>
+            <div>git</div>
         </div>
         <div class="bulletin-wrapper"></div>
     </div>
