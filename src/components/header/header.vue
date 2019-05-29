@@ -21,6 +21,7 @@
                     <span>{{msg.supports[0].description}}</span>
                 </div>
             </div>
+            <div></div>
         </div>
         <div class="bulletin-wrapper"></div>
     </div>
