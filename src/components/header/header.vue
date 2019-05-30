@@ -22,15 +22,28 @@
                 </div>
             </div>
             <!--            小图标-->
-            <div class="support-count" v-if="msg.supports">
+            <div class="support-count" v-if="msg.supports" @click="showDetail">
                 <span class="count">{{msg.supports.length}}个</span>
                 <i class="icon-keyboard_arrow_right"></i>
             </div>
         </div>
-        <div class="bulletin-wrapper">
-            <span class="bulletin-title"></span>
-            <span class="bulletin-text">{{msg.bulletin}}</span>
-            <i class="icon-keyboard_arrow_right"></i>
+        <div class="bulletin-wrapper" @click="showDetail">
+            <span class="bulletin-title"></span><span class="bulletin-text">{{msg.bulletin}}</span><i class="icon-keyboard_arrow_right"></i>
+        </div>
+<!--        背景图片-->
+        <div class="item-bac">
+            <img :src="msg.avatar" alt="">
+        </div>
+<!--        弹出层-->
+        <div class="detail" v-show="detailShow">
+            <div class="detail-wrapper clearfix">
+                <div class="detail-main">
+                    <h1 class="detail-name">{{msg.name}}</h1>
+                </div>
+            </div>
+            <div class="detail-close">
+                <i class="icon-close"></i>
+            </div>
         </div>
     </div>
 </template>
@@ -42,7 +55,13 @@
         },
         data() {
             return {
-                msg: require('../../../data').seller//添加数据
+                msg: require('../../../data').seller,//添加数据
+                detailShow:true,
+            }
+        },
+        methods:{
+            showDetail(){
+                this.detailShow = true;
             }
         },
         created() {
@@ -57,15 +76,16 @@
 
     .header {
         color: #fff;
+        background:rgba(7,17,27,0.5);
+        position relative;
+        padding-top: 0.48rem;
     }
 
     .content-wrapper {
         display: flex;
-        margin-top: 0.48rem;
-        margin-left: 0.48rem;
-        margin-bottom: 0.36rem;
-        background: #333;
+        padding-left: 0.48rem;
         position: relative;
+        margin-bottom: 0.36rem;
     }
 
     .avatar {
@@ -198,10 +218,12 @@
         height:0.56rem;
         line-height 0.56rem;
         background:rgba(7,17,27,0.2);
-        font-size :0;
         padding:0 0.24rem;
-        display :flex;
         align-items:center;
+        white-space :nowrap;
+        overflow :hidden;
+        text-overflow :ellipsis;
+        position relative;
     }
     .bulletin-title{
         display :inline-block;
@@ -211,6 +233,7 @@
         background-repeat:no-repeat;
         background-size:0.4rem 0.2rem;
         margin-right:0.08rem;
+        vertical-align: middle;
     }
     .bulletin-text{
         font-size :0.2rem;
@@ -219,5 +242,52 @@
     .bulletin-wrapper .icon-keyboard_arrow_right {
         font-size: 0.2rem;
         line-height :0.48rem;
+        position absolute;
+        right:0.16rem;
+        top:0.04rem;
+        bottom :0.14rem;
     }
+    .item-bac{
+        position:absolute;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        z-index:-1;
+        filter blur(0.1rem)
+    }
+    .item-bac img{
+        width:100%;
+        height:100%;
+    }
+    .detail{
+        position:fixed;
+        z-index:100;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        background:rgba(7,17,27,0.8);
+        /*filter:blur(0.1rem);*/
+        overflow :auto;
+    }
+    .detail-wrapper
+        min-height:100%;
+        width:100%;
+        .detail-main
+            margin:1.28rem 0.72rem 0
+            padding-bottom:1.28rem
+            .detail-name
+                font-size :0.32rem;
+                font-weight:700;
+                line-height:0.32rem;
+                text-align:center;
+    .detail-close
+        position:relative;
+        width:0.64rem;
+        height:0.64rem;
+        margin:-1.28rem auto 0;
+        font-size :0.64rem;
+        clear:both;
+
 </style>

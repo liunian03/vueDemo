@@ -4,6 +4,15 @@ body,html
     font-weight 200
     font-family :'PingFang SC','STHeitiSC-Light','Helvetica-Light','arial','sans-serif'
 
+
+.clearfix{
+    display :inline-block;
+}
+.clearfix:after{
+    display :block;
+    content:"";
+    clear:both;
+}
 //定义一个css函数，完成1像素边框
 border-1px($color)
   position:relative
