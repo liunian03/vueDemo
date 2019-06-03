@@ -15,8 +15,8 @@
                     <span>/{{msg.deliveryTime}}分钟送达</span>
                 </div>
                 <div class="support" v-if="msg.supports">
-                    <!--                    <img src="./decrease_1@2x.png" alt="">-->
-                    <!--                    动态获取数组里的图片及详情-->
+                    <!--<img src="./decrease_1@2x.png" alt="">-->
+                    <!--动态获取数组里的图片及详情-->
                     <span class="icon" :class="classMap[msg.supports[0].type]"></span>
                     <span>{{msg.supports[0].description}}</span>
                 </div>
@@ -30,25 +30,55 @@
         <div class="bulletin-wrapper" @click="showDetail">
             <span class="bulletin-title"></span><span class="bulletin-text">{{msg.bulletin}}</span><i class="icon-keyboard_arrow_right"></i>
         </div>
-<!--        背景图片-->
+        <!--背景图片-->
         <div class="item-bac">
             <img :src="msg.avatar" alt="">
         </div>
-<!--        弹出层-->
-        <div class="detail" v-show="detailShow">
-            <div class="detail-wrapper clearfix">
-                <div class="detail-main">
-                    <h1 class="detail-name">{{msg.name}}</h1>
+        <!--弹出层-->
+        <transition name="fade">
+            <div class="detail" v-show="detailShow">
+                <div class="detail-wrapper clearfix">
+                    <div class="detail-main">
+                        <h1 class="detail-name">{{msg.name}}</h1>
+                        <div class="star-wrapper">
+                            <v-star :size="48" :score="msg.score"></v-star>
+                        </div>
+                        <div class="title">
+                            <div class="line"></div>
+                            <div class="text">优惠信息</div>
+                            <div class="line"></div>
+                        </div>
+                        <!--满减折扣-->
+                        <div class="supports">
+                            <ul v-if="msg.supports">
+                                <li v-for="(item,index) in msg.supports" class="support-item">
+                                    <span class="icon" :class="classMap[msg.supports[index].type]"></span>
+                                    <span class="text">{{msg.supports[index].description}}</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <!--商家公告-->
+                        <div class="title">
+                            <div class="line"></div>
+                            <div class="text">商家公告</div>
+                            <div class="line"></div>
+                        </div>
+    <!--                    商家公告信息-->
+                        <div class="bulletin-content">
+                            {{msg.bulletin}}
+                        </div>
+                    </div>
+                </div>
+                <div class="detail-close">
+                    <i class="icon-close" @click="hideDetail"></i>
                 </div>
             </div>
-            <div class="detail-close">
-                <i class="icon-close"></i>
-            </div>
-        </div>
+        </transition>
     </div>
 </template>
 
-<script>
+<script type="text/ecmascript-6">
+    import star from "../star/star"
     export default {
         props: {
             sellers: {}
@@ -56,17 +86,23 @@
         data() {
             return {
                 msg: require('../../../data').seller,//添加数据
-                detailShow:true,
+                detailShow:false,
             }
         },
         methods:{
             showDetail(){
                 this.detailShow = true;
+            },
+            hideDetail(){
+                this.detailShow = false;
             }
         },
         created() {
             this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
-        }
+        },
+        components:{
+            'v-star':star
+        },
     };
 </script>
 
@@ -110,7 +146,7 @@
     .title .brand {
         width: 0.6rem;
         height: 0.36rem;
-        bg-image('brand')
+        bg-image('brand');
         background-size: 0.6rem 0.36rem;
         background-repeat: no-repeat;
         margin-right: 0.12rem;
@@ -267,9 +303,20 @@
         left:0;
         width:100%;
         height:100%;
-        background:rgba(7,17,27,0.8);
-        /*filter:blur(0.1rem);*/
+        backdrop-filter:blur(0.1rem);
         overflow :auto;
+        background:rgba(7,17,27,0.8);
+    }
+        //进入动画
+    .fade-enter-active,.fade-leave-to{
+        opacity:1;
+        background:rgba(7,17,27,0.8);
+        transition: all 0.5s;
+    }
+        //离开动画
+    .fade-enter,.fade-leave-to{
+        opacity:0;
+        background:rgba(7,17,27,0);
     }
     .detail-wrapper
         min-height:100%;
@@ -278,10 +325,67 @@
             margin:1.28rem 0.72rem 0
             padding-bottom:1.28rem
             .detail-name
-                font-size :0.32rem;
-                font-weight:700;
-                line-height:0.32rem;
+                font-size :0.32rem
+                font-weight:700
+                line-height:0.32rem
+                text-align:center
+            .star-wrapper
+                width:100%;
                 text-align:center;
+                margin:0.32rem 0 0 0;
+            .title
+                width:100%;
+                display: flex;
+                align-items :center;
+                margin:0.56rem 0 0.48rem 0;
+                .line
+                    flex :1;
+                    width:2.24rem;
+                    height:0.05rem;
+                    background-color:rgba(255,255,255,0.2);
+                .text
+                    padding:0 0.24rem;
+                    font-size:0.28rem;
+                    font-weight :700;
+                    line-height:0.28rem;
+            .supports
+                width:100%;
+                font-size :0;
+                .support-item
+                    padding:0.24rem;
+                    margin-bottom :0.24rem;
+                    &:last-child
+                        margin-bottom :0;
+                    .icon
+                        display: inline-block;
+                        width:0.32rem;
+                        height:0.32rem;
+                        background-size:100%;
+                        background-repeat:no-repeat;
+                    &.decrease
+                        bg-image('decrease_2')
+
+                    &.discount
+                        bg-image('discount_2')
+
+                    &.guarantee
+                        bg-image('guarantee_2')
+
+                    &.invoice
+                        bg-image('invoice_2')
+
+                    &.special
+                        bg-image('special_2')
+
+                    .text
+                        display: inline-block;
+                        font-size:0.24rem;
+                        font-weight :200;
+                        line-height :0.32rem;
+            .bulletin-content
+                font-size:0.24rem;
+                font-weight :200;
+                line-height :0.48rem;
     .detail-close
         position:relative;
         width:0.64rem;
