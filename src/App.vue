@@ -51,15 +51,15 @@
         -moz-osx-font-smoothing: grayscale;
         text-align: left;
         color: #2c3e50;
-        padding: 0.15rem;
+        /*padding: 0.15rem;*/
         font-size:0.28rem;
     }
 
     .content {
         display: flex;
         width: 100%;
-        height: 0.4rem;
-        line-height: 0.4rem;
+        height: 0.8rem;
+        line-height: 0.8rem;
         border-1px(rgba(7, 17, 27, 0.1));
     }
 

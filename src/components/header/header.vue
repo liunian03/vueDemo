@@ -80,9 +80,6 @@
 <script type="text/ecmascript-6">
     import star from "../star/star"
     export default {
-        props: {
-            sellers: {}
-        },
         data() {
             return {
                 msg: require('../../../data').seller,//添加数据
