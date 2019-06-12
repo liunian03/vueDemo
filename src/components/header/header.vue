@@ -131,7 +131,7 @@
         border-radius: 0.04rem;
     }
 
-    .title span {
+    .detail-main .title span {
         float: left;
     }
 
@@ -140,7 +140,7 @@
         margin-right:0.12rem;
         vertical-align: middle;
     }*/
-    .title .brand {
+    .detail-main .title .brand {
         width: 0.6rem;
         height: 0.36rem;
         bg-image('brand');
@@ -149,13 +149,13 @@
         margin-right: 0.12rem;
     }
 
-    .title {
+    .detail-main .title {
         margin-bottom: 0.16rem;
         padding-top: 0.04rem;
         overflow: hidden;
     }
 
-    .title span.brand-name {
+    .detail-main .title span.brand-name {
         font-size: 0.32rem;
         line-height: 0.36rem;
         font-weight: bold;

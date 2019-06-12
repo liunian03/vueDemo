@@ -25,6 +25,9 @@ border-1px($color)
     border-top:1px solid $color
     content:''
 
+border-none()
+    &:after
+        display :none;
 //定义dpr为2的屏幕使用2x图片，dpr为3的屏幕使用3x图片
 bg-image($url)
     background-image:url($url + "@2x.png")

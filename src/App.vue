@@ -55,7 +55,7 @@
         font-size:0.28rem;
     }
 
-    .content {
+    #app .content {
         display: flex;
         width: 100%;
         height: 0.8rem;
@@ -63,12 +63,12 @@
         border-1px(rgba(7, 17, 27, 0.1));
     }
 
-    .content .tab-item {
+    #app .content .tab-item {
         flex: 1;
         text-align: center;
     }
 
-    .content .tab-item a {
+    #app .content .tab-item a {
         display: block;
         text-decoration: none;
         color: #333;
@@ -78,7 +78,7 @@
         background: red;
     }
 
-    .content .tab-item a.active {
+    #app .content .tab-item a.active {
         background: none;
         color: rgb(240, 20, 20);
     }
